@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/buildpack-deps:buster
     environment:
-      IMAGE_NAME: ragescan-dma-ais
+      IMAGE_NAME: ragescan-motorst-stats
     steps:
       - checkout
       - setup_remote_docker

@@ -1,6 +1,6 @@
-ragescan-dma-ais
-================
+ragescan-motorst-stats
+======================
 
-This is a tool that downloads the latest AIS data from the Danish Maritime
-authority, compresses it with [zstd](https://github.com/facebook/zstd) and
-uploads it so S3.
+This is a tool that downloads the latest vehicle statistics from the danish
+vehicle registration authority, compresses it with
+[zstd](https://github.com/facebook/zstd) and uploads it to object storage

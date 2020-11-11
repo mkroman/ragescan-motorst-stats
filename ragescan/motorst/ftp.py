@@ -1,7 +1,9 @@
 import ftplib
 import logging
 
-DMA_AIS_FTP_HOST = 'ftp.ais.dk'
+MOTORST_FTP_HOST = '5.44.137.84'
+MOTORST_FTP_USER = 'dmr-ftp-user'
+MOTORST_FTP_PASS = 'dmrpassword'
 
 class FTP:
   """Provides a convenient wrapper around the FTP server where DMA publishes their files"""
@@ -18,10 +20,10 @@ class FTP:
     connected.
     """
     if not self.connected:
-      self.logger.debug(f"Connecting to ftp://{DMA_AIS_FTP_HOST}")
-      self.ftp = ftplib.FTP(DMA_AIS_FTP_HOST)
-      self.logger.debug("Logging in as anonymous")
-      self.ftp.login()
+      self.logger.debug(f"Connecting to ftp://{MOTORST_FTP_HOST}")
+      self.ftp = ftplib.FTP(MOTORST_FTP_HOST)
+      self.logger.debug(f"Logging in as {MOTORST_FTP_USER}")
+      self.ftp.login(MOTORST_FTP_USER, MOTORST_FTP_PASS)
       self.connected = True
 
   def cd(self, path):

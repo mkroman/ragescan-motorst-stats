@@ -5,10 +5,7 @@ import sys
 import logging
 import subprocess
 
-from ragescan import dma, ezs3
-
-# List of files or folders that are ignored on the ftp server
-IGNORED_FILES = ['aspnet_client']
+from ragescan import motorst, ezs3
 
 # The default temporary work directory
 TEMPORARY_WORK_DIR = 'tmp'
@@ -29,24 +26,20 @@ if not os.path.exists(TEMPORARY_WORK_DIR):
   os.mkdir(TEMPORARY_WORK_DIR)
 
 # Get a full list of all the file names in the bucket
-s3 = ezs3.S3('danish-ais-data')
+s3 = ezs3.S3('danish-vehicle-data')
 bucket_objects = s3.ls()
 bucket_file_names = list(map(lambda x: x.key, bucket_objects))
 
 # Connect to the FTP server
-ftp = dma.FTP()
-ftp.cd('ais_data')
+ftp = motorst.FTP()
+ftp.cd('ESStatistikListeModtag')
 
 ftp_files = ftp.ls()
-
-
+logger.debug("Found {} files".format(len(ftp_files)))
 
 # Go through each of the files on the FTP server and process it if it's not
 # present in the s3 bucket
 for file_name in ftp_files:
-  if file_name in IGNORED_FILES:
-    continue
-
   base_name, archive_type, extension = process_original_file_name(file_name)
   processed_file_name = f"{base_name}.tar.zst" if archive_type else f"{base_name}{extension}.zst"
 
